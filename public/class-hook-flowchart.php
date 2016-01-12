@@ -215,7 +215,6 @@ class Hook_Flowchart {
 			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/mermaid.js', __FILE__ ) . '"></script>'
 			. '<script type="text/javascript" src="' . get_site_url() . '/wp-includes/js/jquery/jquery.js"></script>'
 			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/popupcode.js', __FILE__ ) . '"></script>'
-			//. '<script> var hooks = ' . json_encode( $wp_parent_hook ) . ';</script>'
 			. '</head><body><h2>Hooks Flowchart - ' . get_site_url() . $_SERVER[ 'REQUEST_URI' ] . '</h2>' . $html . '</body></html>';
 		echo '<script>'
 		. 'jQuery(document).ready(function() {'
