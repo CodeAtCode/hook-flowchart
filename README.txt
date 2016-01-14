@@ -13,7 +13,7 @@ See a flowchart of the hooks of the page!
 == Description ==
 
 All the hooks will showed in different flowchart in SVG format that you can download as PNG to study!  
-In the settings page is possible set the parent hook to exclude.
+In the settings page is possible set the parent hooks to exclude.
 
 The support for download as PNG not works on WebKit based browser.  
 
@@ -42,20 +42,11 @@ Check the screenshots!
 2. Extract the `hook-flowchart` directory to your computer
 3. Upload the `hook-flowchart` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
 
 == Screenshots ==
 
 1. The window opened with all the flowcharts.
-2. The flowchart download for a specific parent hook
+2. The hook flowchart downloaded for a specific parent hook
 
 == Changelog ==
 

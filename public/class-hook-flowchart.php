@@ -69,6 +69,15 @@ class Hook_Flowchart {
 	protected static $instance = null;
 
 	/**
+	 * Hooks
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var      array
+	 */
+	protected $hooks = null;
+
+	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
@@ -211,33 +220,42 @@ class Hook_Flowchart {
 		}
 	}
 
+	/**
+	 * Fired for each hook
+	 *
+	 * @since    1.0.0
+	 */
 	function parent_hook() {
-		global $wp_parent_hook, $wp_current_filter;
+		global $wp_current_filter;
 		foreach ( $wp_current_filter as $child => $hook_name ) {
-			if ( $child === 0 && !isset( $wp_parent_hook[ $hook_name ] ) ) {
-				$wp_parent_hook[ $hook_name ] = array();
-			} elseif ( $child === 1 && !isset( $wp_parent_hook[ $wp_current_filter[ 0 ] ][ $hook_name ] ) ) {
-				$wp_parent_hook[ $wp_current_filter[ 0 ] ][ $hook_name ] = array();
-			} elseif ( $child === 2 && !isset( $wp_parent_hook[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $hook_name ] ) ) {
-				$wp_parent_hook[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $hook_name ] = array();
+			if ( $child === 0 && !isset( $this->hooks[ $hook_name ] ) ) {
+				$this->hooks[ $hook_name ] = array();
+			} elseif ( $child === 1 && !isset( $this->hooks[ $wp_current_filter[ 0 ] ][ $hook_name ] ) ) {
+				$this->hooks[ $wp_current_filter[ 0 ] ][ $hook_name ] = array();
+			} elseif ( $child === 2 && !isset( $this->hooks[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $hook_name ] ) ) {
+				$this->hooks[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $hook_name ] = [ ];
 			} elseif ( $child === 3 ) {
-				$wp_parent_hook[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $wp_current_filter[ 2 ] ][ $hook_name ] = 1;
+				$this->hooks[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $wp_current_filter[ 2 ] ][ $hook_name ] = 1;
 			}
 		}
 	}
 
+	/**
+	 * Generate the window
+	 *
+	 * @since    1.0.0
+	 */
 	function print_hookr_flowchart() {
-		global $wp_parent_hook;
 		$html = '';
-		ksort( $wp_parent_hook );
+		ksort( $this->hooks );
 		$exclude = get_option( $this->get_plugin_slug() );
 		$exclude = explode( ',', $exclude[ 'excluded' ] );
 		foreach ( $exclude as $key => $value ) {
-			if ( isset( $wp_parent_hook[ $value ] ) ) {
-				unset( $wp_parent_hook[ $value ] );
+			if ( isset( $this->hooks[ $value ] ) ) {
+				unset( $this->hooks[ $value ] );
 			}
 		}
-		foreach ( $wp_parent_hook as $hook_father => $hook_son ) {
+		foreach ( $this->hooks as $hook_father => $hook_son ) {
 			if ( is_array( $hook_son ) && count( $hook_son ) > 1 ) {
 				$html .= '<div class="mermaid-noise" style="display:none">';
 				$html .= '[n]graph LR' . "[n]";

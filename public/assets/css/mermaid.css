@@ -81,8 +81,8 @@ text.actor {
 .noteText {
   fill: black;
   stroke: none;
-  font-family: 'trebuchet ms', verdana, arial;
-  font-size: 14px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 13px;
 }
 /** Section styling */
 .section {
@@ -251,7 +251,7 @@ text.actor {
 
 */
 text {
-  font-family: 'trebuchet ms', verdana, arial;
-  font-size: 14px;
+  font-family: "Open Sans",sans-serif;
+  font-size: 13px;
 }
 
