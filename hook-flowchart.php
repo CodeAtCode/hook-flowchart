@@ -1,23 +1,19 @@
 <?php
 
 /**
- * The WordPress Plugin Boilerplate.
- *
- * A foundation off of which to build well-documented WordPress plugins that
- * also follow WordPress Coding Standards and PHP best practices.
  *
  * @package   Hook_Flowchart
  * @author    Mte90 <daniele@codeat.it>
  * @license   GPL-2.0+
  * @link      http://codeat.it
- * @copyright 2015 GPL
+ * @copyright 2016 GPL
  *
  * @wordpress-plugin
  * Plugin Name:       Hook Flowchart
  * Plugin URI:        @TODO
  * Description:       @TODO
  * Version:           1.0.0
- * Author:            Mte90
+ * Author:            Codeat
  * Author URI:        http://codeat.it
  * Text Domain:       hook-flowchart
  * License:           GPL-2.0+
@@ -47,4 +43,15 @@ require_once( plugin_dir_path( __FILE__ ) . 'public/class-hook-flowchart.php' );
  * Register hooks that are fired when the plugin is activated or deactivated.
  * When the plugin is deleted, the uninstall.php file is loaded.
  */
+register_activation_hook( __FILE__, array( 'Hook_Flowchart', 'activate' ) );
+
+/*
+ * Register hooks that are fired when the plugin is activated or deactivated.
+ * When the plugin is deleted, the uninstall.php file is loaded.
+ */
 add_action( 'plugins_loaded', array( 'Hook_Flowchart', 'get_instance' ), 9999 );
+
+if ( is_admin() && (!defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-hook-flowchart-admin.php' );
+	add_action( 'plugins_loaded', array( 'Hook_Flowchart_Admin', 'get_instance' ) );
+}
