@@ -211,10 +211,11 @@ class Hook_Flowchart {
 			}
 		}
 		$html = '<html><head><title>Hooks Flowchart - ' . $_SERVER[ 'REQUEST_URI' ] . '</title>'
+			. '<link rel="stylesheet" type="text/css" href="' . get_site_url() . '/wp-admin/load-styles.php?c=1&dir=ltr&load=wp-admin,buttons" />'
 			. '<link rel="stylesheet" type="text/css" href="' . plugins_url( 'assets/css/mermaid.css', __FILE__ ) . '" />'
 			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/mermaid.js', __FILE__ ) . '"></script>'
 			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/popupcode.js', __FILE__ ) . '"></script>'
-			. '</head><body><h2>Hook\'s Flowchart - ' . get_site_url() . $_SERVER[ 'REQUEST_URI' ] . '</h2>' . $html . '</body></html>';
+			. '</head><body class="wp-core-ui" style="padding-left:20px"><h1>Hook Flowchart - ' . get_site_url() . $_SERVER[ 'REQUEST_URI' ] . '</h1>' . $html . '</body></html>';
 		echo '<script>'
 		. 'jQuery(document).ready(function() {'
 		. 'jQuery( "#wp-admin-bar-hook-flowchart a" ).click(function() {
