@@ -11,12 +11,30 @@ document.addEventListener('DOMContentLoaded', function () {
     convert = convert.replace(/\[n\]/g, "\n");
     var hook = convert.slice(15).split(']');
     hook = hook[0];
-    document.querySelector('body').innerHTML += "<h3>Hook " + hook + "</h3>";
+    document.querySelector('.body').innerHTML += "<h3 id='" + hook + "'>Hook " + hook + "</h3>";
+    document.querySelector('.buttons').innerHTML += "<a href='#" + hook + "' class='button'>" + hook + "</a><input type='checkbox' data-hook='" + hook + "' data-id='" + i + "' alt='Hide' title='Hide' class='hide-hook' style='margin-top:3px'/>";
     if (!isWebkit) {
-      document.querySelector('body').innerHTML += "<button class='button button-primary mermaid-download' data-id='" + i + "'>Download as PNG</button>";
+      document.querySelector('.body').innerHTML += "<button class='button button-primary mermaid-download' data-id='" + i + "'>Download</button>";
     }
-    document.querySelector('body').innerHTML += "<div class='mermaid-" + i + "'>" + convert + "</div><hr>";
+    document.querySelector('.body').innerHTML += "<div class='mermaid-" + i + "'>" + convert + "</div><hr data-id='" + i + "'>";
     mermaid.init(".mermaid-" + i);
+  });
+  document.querySelector('button.gotop').addEventListener('click', function () {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  });
+  [].forEach.call(document.querySelectorAll('.hide-hook'), function (e) {
+    e.addEventListener('click', function () {
+      if (e.checked) {
+        document.querySelector(".mermaid-" + e.dataset.id).style.display = 'none';
+        document.querySelector("#" + e.dataset.hook).style.display = 'none';
+        document.querySelector(".mermaid-download[data-id='" + e.dataset.id + "']").style.display = 'none';
+        document.querySelector("hr[data-id='" + e.dataset.id + "']").style.display = 'none';
+      } else {
+        document.querySelector(".mermaid-" + e.dataset.id).style.display = 'block';
+        document.querySelector("#" + e.dataset.hook).style.display = 'block';
+        document.querySelector("hr[data-id='" + e.dataset.id + "']").style.display = 'block';
+      }
+    });
   });
   if (!isWebkit) {
     [].forEach.call(document.querySelectorAll('button.mermaid-download'), function (e) {

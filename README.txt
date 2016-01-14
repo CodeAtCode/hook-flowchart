@@ -13,6 +13,9 @@ See a flowchart of the hooks of the page!
 == Description ==
 
 All the hooks will showed in different flowchart in SVG format that you can download as PNG to study!  
+
+The support for download as PNG not works on WebKit based browser.  
+
 Check the screenshots!
 
 == Installation ==

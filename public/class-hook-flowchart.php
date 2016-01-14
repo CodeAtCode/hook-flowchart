@@ -162,7 +162,7 @@ class Hook_Flowchart {
 		    'href' => '#'
 		) );
 	}
-	
+
 	function parent_hook() {
 		global $wp_parent_hook, $wp_current_filter;
 		foreach ( $wp_current_filter as $child => $hook_name ) {
@@ -181,6 +181,7 @@ class Hook_Flowchart {
 	function print_hookr_flowchart() {
 		global $wp_actions, $wp_filter, $wp_parent_hook;
 		$html = '';
+		ksort( $wp_parent_hook );
 		foreach ( $wp_parent_hook as $hook_father => $hook_son ) {
 			if ( is_array( $hook_son ) && count( $hook_son ) > 1 ) {
 				$html .= '<div class="mermaid-noise" style="display:none">';
@@ -210,12 +211,12 @@ class Hook_Flowchart {
 				$html .= '</div>';
 			}
 		}
-		$html = '<html><head><title>Hooks Flowchart - ' . $_SERVER[ 'REQUEST_URI' ] . '</title>'
+		$html = '<html><head><title>Hook Flowchart - ' . $_SERVER[ 'REQUEST_URI' ] . '</title>'
 			. '<link rel="stylesheet" type="text/css" href="' . get_site_url() . '/wp-admin/load-styles.php?c=1&dir=ltr&load=wp-admin,buttons" />'
 			. '<link rel="stylesheet" type="text/css" href="' . plugins_url( 'assets/css/mermaid.css', __FILE__ ) . '" />'
 			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/mermaid.js', __FILE__ ) . '"></script>'
 			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/popupcode.js', __FILE__ ) . '"></script>'
-			. '</head><body class="wp-core-ui" style="padding-left:20px"><h1>Hook Flowchart - ' . get_site_url() . $_SERVER[ 'REQUEST_URI' ] . '</h1>' . $html . '</body></html>';
+			. '</head><body class="wp-core-ui"><div class="body" style="padding-left:20px"><h1>Hook Flowchart - ' . get_site_url() . $_SERVER[ 'REQUEST_URI' ] . '</h1><h3>' . __( 'Use ctrl + f to use your browser search function or click on that buttons to jump to the parent hook, check the hook to hide', $this->plugin_slug ) . '</h3><span class="buttons"></span>' . $html . '<button class="button button-primary gotop" style="float:right;position:fixed;bottom:10px;right:10px;">' . __( 'Go Top', $this->plugin_slug ) . '</button></div></body></html>';
 		echo '<script>'
 		. 'jQuery(document).ready(function() {'
 		. 'jQuery( "#wp-admin-bar-hook-flowchart a" ).click(function() {
@@ -227,6 +228,5 @@ class Hook_Flowchart {
 		. '});'
 		. '</script>';
 	}
-
 
 }
