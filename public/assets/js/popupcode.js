@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   var i = 0;
-  var isWebkit = 'WebkitAppearance' in document.documentElement.style
+  var isWebkit = 'WebkitAppearance' in document.documentElement.style;
   mermaid.initialize({
     flowchart: {
       useMaxWidth: false
@@ -45,23 +45,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function svgToPng(source) {
       var name = source.querySelector('#a div').innerHTML;
+      var canvas = document.createElement("canvas");
+      canvas.setAttribute('width', source.getBBox().width);
+      canvas.setAttribute('height', source.getBBox().height);
+      var ctx = canvas.getContext("2d");
+      var img = new Image();
+      img.setAttribute('crossOrigin', 'anonymous');
+      img.crossOrigin = "Anonymous";
       var svgString = new XMLSerializer().serializeToString(source);
       //Hack for Mermaid to replace div to text object
       svgString = svgString.replace(/div/g, "text");
       //Hack for mermaid for text alignment
-      svgString = svgString.replace(/translate\(0\,0\)/g, 'translate(0,12)');
+      svgString = svgString.replace(/translate\(0\,0\)/g, 'translate(-2,0)');
       var svg = new Blob([svgString], {
-        type: "image/png"
+        type: "image/svg+xml;charset=utf-8"
       });
       var url = window.URL.createObjectURL(svg);
-      var a = document.createElement('a');
-      a.download = name + '.png';
-      a.href = url;
-      document.body.appendChild(a);
-      a.addEventListener("click", function (e) {
-        a.parentNode.removeChild(a);
-      });
-      a.click();
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        var png = canvas.toDataURL("image/png");
+        var target = document.createElement('img');
+        target.className = "on-the-fly";
+        target.src = png;
+        document.body.appendChild(target);
+        window.URL.revokeObjectURL(png);
+      };
+      img.src = url;
+      var timeout = window.setTimeout(function () {
+        var a = document.createElement('a');
+        a.download = name + '.png';
+        a.href = document.querySelector('.on-the-fly').src;
+        document.body.appendChild(a);
+        a.addEventListener("click", function (e) {
+          a.parentNode.removeChild(a);
+          document.querySelector('.on-the-fly').parentNode.removeChild(document.querySelector('.on-the-fly'));
+        });
+        a.click();
+        window.clearTimeout(timeout);
+      }, 200);
     }
   }
 
