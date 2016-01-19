@@ -1,23 +1,25 @@
 === Hook Flowchart ===
-Contributors: mte90
+Contributors: codeat, mte90
 Donate link: http://codeat.it/
-Tags: debug, hook, flowchart
+Tags: debug, hook, flowchart, developer, tool, core
 Requires at least: 4.2
-Tested up to: 4.2
+Tested up to: 4.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-See a flowchart of the hooks of the page!
+In every WordPress page there are in action many hooks but what are the relations between them?
 
 == Description ==
 
-All the hooks will showed in different flowchart in SVG format that you can download as PNG to study!  
+With this plugin is possible generate for every parent hook a flowchart on every page!  
+The flowcharts are opened in a new page and generated with JavaScript and for the Firefox users is possible download every flowchart as a PNG.
+
 In the settings page is possible set the parent hooks to exclude.
 
-The support for download as PNG not works on WebKit based browser.  
-
 Check the screenshots!
+
+PS: The support for download as PNG not works on WebKit based browser.  
 
 == Installation ==
 
@@ -46,11 +48,9 @@ Check the screenshots!
 == Screenshots ==
 
 1. The window opened with all the flowcharts.
-2. The hook flowchart downloaded for a specific parent hook
+2. The flowchart downloaded for a specific parent hook
 
 == Changelog ==
 
 = 1.0 =
 * First Release
-
-

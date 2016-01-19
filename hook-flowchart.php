@@ -10,8 +10,8 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Hook Flowchart
- * Plugin URI:        @TODO
- * Description:       @TODO
+ * Plugin URI:        https://wordpress.org/plugins/hook-flowchart/
+ * Description:       In every WordPress page there are in action many hooks but what are the relations between them?
  * Version:           1.0.0
  * Author:            Codeat
  * Author URI:        http://codeat.it
@@ -19,7 +19,7 @@
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
- * WordPress-Plugin-Boilerplate-Powered: v1.1.5
+ * WordPress-Plugin-Boilerplate-Powered: v1.1.6
  */
 
 // If this file is called directly, abort.
