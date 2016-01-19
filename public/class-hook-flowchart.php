@@ -209,14 +209,14 @@ class Hook_Flowchart {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		$settings = get_option( $this->get_plugin_slug() );
+		$settings = get_option( self::$plugin_slug );
 		$settings_new = false;
 		//Set default values
 		if ( empty( $settings[ 'excluded' ] ) ) {
 			$settings_new[ 'excluded' ] = 'wp_default_scripts,map_meta_cap,get_avatar,custom_menu_order,admin_body_class,admin_footer_text,pre_option_gmt_offset,welcome_panel,date_i18n,pre_http_request,determine_current_user,in_admin_header,update_footer';
 		}
 		if ( $settings_new !== false ) {
-			update_option( $this->get_plugin_slug(), $settings_new );
+			update_option( self::$plugin_slug, $settings_new );
 		}
 	}
 
