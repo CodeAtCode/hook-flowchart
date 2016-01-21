@@ -8,18 +8,18 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-In every WordPress page there are in action many hooks but what are the relations between them?
+In every WordPress page there are many different hooks, but what is the direct relationship among them?
 
 == Description ==
 
-With this plugin is possible generate for every parent hook a flowchart on every page!  
-The flowcharts are opened in a new page and generated with JavaScript and for the Firefox users is possible download every flowchart as a PNG.
+This plugin generates a flowchart for every parent hook that is running under your actual page.   
+In Firefox, the flowcharts are JavaScript generated and downloadable in .png format.
 
-In the settings page is possible set the parent hooks to exclude.
+From the Setting Page you can choose which parent hook to exlude from the chart.  
 
 Check the screenshots!
 
-PS: The support for download as PNG not works on WebKit based browser.  
+PS: The download feature is not supported in Webkit-based browsers like Safari or Chrome/Chormium.
 
 == Installation ==
 
