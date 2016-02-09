@@ -233,7 +233,7 @@ class Hook_Flowchart {
 			} elseif ( $child === 1 && !isset( $this->hooks[ $wp_current_filter[ 0 ] ][ $hook_name ] ) ) {
 				$this->hooks[ $wp_current_filter[ 0 ] ][ $hook_name ] = array();
 			} elseif ( $child === 2 && !isset( $this->hooks[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $hook_name ] ) ) {
-				$this->hooks[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $hook_name ] = [ ];
+				$this->hooks[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $hook_name ] = array();
 			} elseif ( $child === 3 ) {
 				$this->hooks[ $wp_current_filter[ 0 ] ][ $wp_current_filter[ 1 ] ][ $wp_current_filter[ 2 ] ][ $hook_name ] = 1;
 			}
