@@ -14,7 +14,7 @@ In every WordPress page there are many different hooks, but what is the direct r
 
 This plugin generates a flowchart for every parent hook that is running under your actual page. 
 
-From the Setting Page you can choose which parent hook to exlude from the chart.  
+From the Setting Page you can choose which parent hook to exclude from the chart.  
 
 Check the screenshot!
 
