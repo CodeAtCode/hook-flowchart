@@ -263,7 +263,7 @@ class Hook_Flowchart {
 				}
 			}
 
-			echo '<style>.hookr-flowchart {z-index: 9999;position: absolute;}.wp-admin .hookr-flowchart{margin-left: 160px;top:30px;}</style>'
+			echo '<style>.hookr-flowchart {z-index: 9999;position: absolute;background: white;}.wp-admin .hookr-flowchart{background: #f1f1f1;margin-left: 160px;top:30px;}</style>'
 			. '<div class="hookr-flowchart" style="padding-left:20px;display:none;z-index:9999;">'
 			. '<h1>Hook Flowchart</h1><h3>' . "\n"
 			. __( 'Use ctrl + f to use your browser search function or click on that buttons to jump to the parent hook, check the hook to hide', $this->get_plugin_slug() ) . '</h3><span class="buttons"></span>' . "\n"

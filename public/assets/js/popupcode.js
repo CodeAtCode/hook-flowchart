@@ -22,6 +22,9 @@ jQuery(document).ready(function () {
 		  useMaxWidth: false
 		}}, ".mermaid-" + i);
 	});
+
+	jQuery("#wpbody,#wpfooter").hide();
+	document.querySelector('.hookr-flowchart').scrollIntoView({block: 'start', behavior: 'smooth'});
 	//Go to top
 	document.querySelector('button.gotop').addEventListener('click', function () {
 	  document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -32,7 +35,6 @@ jQuery(document).ready(function () {
 		if (e.checked) {
 		  document.querySelector(".mermaid-" + e.dataset.id).style.display = 'none';
 		  document.querySelector("#" + e.dataset.hook).style.display = 'none';
-		  document.querySelector(".mermaid-download[data-id='" + e.dataset.id + "']").style.display = 'none';
 		  document.querySelector("hr[data-id='" + e.dataset.id + "']").style.display = 'none';
 		} else {
 		  document.querySelector(".mermaid-" + e.dataset.id).style.display = 'block';
@@ -41,6 +43,5 @@ jQuery(document).ready(function () {
 		}
 	  });
 	});
-	jQuery("#wpbody,#wpfooter").hide();
   });
 });
