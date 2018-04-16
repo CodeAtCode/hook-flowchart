@@ -2,9 +2,9 @@
 Contributors: codeat, mte90
 Donate link: http://codeat.it/
 Tags: debug, hook, flowchart, developer, tool, core
-Requires at least: 4.2
-Tested up to: 4.4
-Stable tag: 1.0.0
+Requires at least: 4.7
+Tested up to: 4.9
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,8 +12,7 @@ In every WordPress page there are many different hooks, but what is the direct r
 
 == Description ==
 
-This plugin generates a flowchart for every parent hook that is running under your actual page.   
-In Firefox, the flowcharts are JavaScript generated and downloadable in .png format.
+This plugin generates a flowchart for every parent hook that is running under your actual page. 
 
 From the Setting Page you can choose which parent hook to exlude from the chart.  
 
@@ -51,6 +50,10 @@ PS: The download feature is not supported in Webkit-based browsers like Safari o
 2. The flowchart downloaded for a specific parent hook
 
 == Changelog ==
+
+= 2.0 =
+* New interface
+* Code updated
 
 = 1.0 =
 * First Release

@@ -89,7 +89,6 @@ class Hook_Flowchart {
 		add_action( 'shutdown', array( $this, 'print_hookr_flowchart' ), 9999 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stuff' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_stuff' ) );
-		add_action( 'init', array( $this, 'show_flowchart' ), 9999 );
 	}
 
 	/**
@@ -264,28 +263,13 @@ class Hook_Flowchart {
 				}
 			}
 
-			echo '<div class="hookr-flowchart" style="display:none;z-index:9999;">'
-			. '<div class="body" style="padding-left:20px"><h1>Hook Flowchart</h1><h3>' . "\n"
+			echo '<style>.hookr-flowchart {z-index: 9999;position: absolute;}.wp-admin .hookr-flowchart{margin-left: 160px;top:30px;}</style>'
+			. '<div class="hookr-flowchart" style="padding-left:20px;display:none;z-index:9999;">'
+			. '<h1>Hook Flowchart</h1><h3>' . "\n"
 			. __( 'Use ctrl + f to use your browser search function or click on that buttons to jump to the parent hook, check the hook to hide', $this->get_plugin_slug() ) . '</h3><span class="buttons"></span>' . "\n"
 			. $this->array_to_mermaid( $this->hooks ) . "\n"
-			. '<button class="button button-primary gotop" style="float:right;position:fixed;bottom:10px;right:10px;">' . __( 'Go Top', $this->get_plugin_slug() ) . '</button></div>'
-			. '</div><style>.hookr-flowchart {z-index: 9999;position: absolute;}.wp-admin .hookr-flowchart{margin-left: 160px;}</style><script>'
-			. 'jQuery(document).ready(function() {'
-			. 'jQuery( "#wp-admin-bar-hook-flowchart a" ).click(function() {
-				jQuery(".hookr-flowchart").show();
-		      });'
-			. '});'
-			. '</script>';
-		}
-	}
-
-	public function show_flowchart() {
-		if ( is_user_logged_in() ) {
-			if ( isset( $_GET[ 'hookr-flowchart' ] ) ) {
-				$hooks = str_replace( '\"', '"', $_GET[ 'hookr-flowchart' ] );
-				;
-				die();
-			}
+			. '<button class="button button-primary gotop" style="float:right;position:fixed;bottom:10px;right:10px;">' . __( 'Go Top', $this->get_plugin_slug() ) . '</button>'
+			. '</div>';
 		}
 	}
 
