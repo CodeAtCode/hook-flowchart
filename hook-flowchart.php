@@ -27,6 +27,12 @@ if ( !defined( 'WPINC' ) ) {
 	die;
 }
 
+define( 'HF_VERSION', '2.0.0' );
+define( 'HF_TEXTDOMAIN', 'hook-flowchart' );
+define( 'HF_NAME', 'Hook Flowchart' );
+define( 'HF_PLUGIN_ROOT', plugin_dir_path( __FILE__ ) );
+define( 'HF_PLUGIN_ABSOLUTE',  __FILE__  );
+
 /*
  * ------------------------------------------------------------------------------
  * Public-Facing Functionality

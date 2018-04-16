@@ -87,6 +87,9 @@ class Hook_Flowchart {
 		add_action( 'admin_bar_menu', array( $this, 'register_menu' ), 99 );
 		add_action( 'all', array( $this, 'parent_hook' ) );
 		add_action( 'shutdown', array( $this, 'print_hookr_flowchart' ), 9999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_stuff' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_stuff' ) );
+		add_action( 'init', array( $this, 'show_flowchart' ), 9999 );
 	}
 
 	/**
@@ -181,12 +184,9 @@ class Hook_Flowchart {
 
 					restore_current_blog();
 				}
-			} else {
-				self::single_activate();
 			}
-		} else {
-			self::single_activate();
 		}
+		self::single_activate();
 	}
 
 	/**
@@ -197,9 +197,9 @@ class Hook_Flowchart {
 	 */
 	function register_menu( $wp_admin_bar ) {
 		$wp_admin_bar->add_node( array(
-		    'id' => 'hook-flowchart',
-		    'title' => 'Hook FlowChart',
-		    'href' => '#'
+			'id' => 'hook-flowchart',
+			'title' => 'Hook FlowChart',
+			'href' => '#'
 		) );
 	}
 
@@ -225,7 +225,7 @@ class Hook_Flowchart {
 	 *
 	 * @since    1.0.0
 	 */
-	function parent_hook() {
+	public function parent_hook() {
 		global $wp_current_filter;
 		foreach ( $wp_current_filter as $child => $hook_name ) {
 			if ( $child === 0 && !isset( $this->hooks[ $hook_name ] ) ) {
@@ -240,22 +240,58 @@ class Hook_Flowchart {
 		}
 	}
 
+	public function enqueue_stuff() {
+		if ( is_user_logged_in() ) {
+			wp_enqueue_style( HF_TEXTDOMAIN . '-plugin-styles', plugins_url( 'public/assets/css/mermaid.css', HF_PLUGIN_ABSOLUTE ), array(), HF_VERSION );
+			wp_enqueue_script( HF_TEXTDOMAIN . '-mermaid', plugins_url( 'public/assets/js/mermaid.js', HF_PLUGIN_ABSOLUTE ), array( 'jquery' ), HF_VERSION );
+			wp_enqueue_script( HF_TEXTDOMAIN . '-plugin-script', plugins_url( 'public/assets/js/popupcode.js', HF_PLUGIN_ABSOLUTE ), array( 'jquery' ), HF_VERSION );
+		}
+	}
+
 	/**
 	 * Generate the window
 	 *
 	 * @since    1.0.0
 	 */
 	function print_hookr_flowchart() {
-		$html = '';
-		ksort( $this->hooks );
-		$exclude = get_option( $this->get_plugin_slug() );
-		$exclude = explode( ',', $exclude[ 'excluded' ] );
-		foreach ( $exclude as $key => $value ) {
-			if ( isset( $this->hooks[ $value ] ) ) {
-				unset( $this->hooks[ $value ] );
+		if ( !isset( $_GET[ 'hookr-flowchart' ] ) ) {
+			ksort( $this->hooks );
+			$exclude = get_option( $this->get_plugin_slug() );
+			$exclude = explode( ',', $exclude[ 'excluded' ] );
+			foreach ( $exclude as $key => $value ) {
+				if ( isset( $this->hooks[ $value ] ) ) {
+					unset( $this->hooks[ $value ] );
+				}
+			}
+
+			echo '<div class="hookr-flowchart" style="display:none;z-index:9999;">'
+			. '<div class="body" style="padding-left:20px"><h1>Hook Flowchart</h1><h3>' . "\n"
+			. __( 'Use ctrl + f to use your browser search function or click on that buttons to jump to the parent hook, check the hook to hide', $this->get_plugin_slug() ) . '</h3><span class="buttons"></span>' . "\n"
+			. $this->array_to_mermaid( $this->hooks ) . "\n"
+			. '<button class="button button-primary gotop" style="float:right;position:fixed;bottom:10px;right:10px;">' . __( 'Go Top', $this->get_plugin_slug() ) . '</button></div>'
+			. '</div><style>.hookr-flowchart {z-index: 9999;position: absolute;}.wp-admin .hookr-flowchart{margin-left: 160px;}</style><script>'
+			. 'jQuery(document).ready(function() {'
+			. 'jQuery( "#wp-admin-bar-hook-flowchart a" ).click(function() {
+				jQuery(".hookr-flowchart").show();
+		      });'
+			. '});'
+			. '</script>';
+		}
+	}
+
+	public function show_flowchart() {
+		if ( is_user_logged_in() ) {
+			if ( isset( $_GET[ 'hookr-flowchart' ] ) ) {
+				$hooks = str_replace( '\"', '"', $_GET[ 'hookr-flowchart' ] );
+				;
+				die();
 			}
 		}
-		foreach ( $this->hooks as $hook_father => $hook_son ) {
+	}
+
+	public function array_to_mermaid( $hooks ) {
+		$html = '';
+		foreach ( $hooks as $hook_father => $hook_son ) {
 			if ( is_array( $hook_son ) && count( $hook_son ) > 1 ) {
 				$html .= '<div class="mermaid-noise" style="display:none">';
 				$html .= '[n]graph LR' . "[n]";
@@ -284,22 +320,7 @@ class Hook_Flowchart {
 				$html .= '</div>';
 			}
 		}
-		$html = '<html><head><title>Hook Flowchart - ' . $_SERVER[ 'REQUEST_URI' ] . '</title>'
-			. '<link rel="stylesheet" type="text/css" href="' . get_site_url() . '/wp-admin/load-styles.php?c=1&dir=ltr&load=wp-admin,buttons" />'
-			. '<link rel="stylesheet" type="text/css" href="' . plugins_url( 'assets/css/mermaid.css', __FILE__ ) . '" />'
-			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/mermaid.js', __FILE__ ) . '"></script>'
-			. '<script type="text/javascript" src="' . plugins_url( 'assets/js/popupcode.js', __FILE__ ) . '"></script>'
-			. '</head><body class="wp-core-ui"><div class="body" style="padding-left:20px"><h1>Hook Flowchart - ' . get_site_url() . $_SERVER[ 'REQUEST_URI' ] . '</h1><h3>' . __( 'Use ctrl + f to use your browser search function or click on that buttons to jump to the parent hook, check the hook to hide', $this->get_plugin_slug() ) . '</h3><span class="buttons"></span>' . $html . '<button class="button button-primary gotop" style="float:right;position:fixed;bottom:10px;right:10px;">' . __( 'Go Top', $this->get_plugin_slug() ) . '</button></div></body></html>';
-		echo '<script>'
-		. 'jQuery(document).ready(function() {'
-		. 'jQuery( "#wp-admin-bar-hook-flowchart a" ).click(function() {
-			html = jQuery("<div/>").html("' . htmlentities( $html ) . '").text();
-			url = \'data:text/html,\' + html;
-			var win = window.open(url, "_blank");
-			win.focus();
-		      });'
-		. '});'
-		. '</script>';
+		return $html;
 	}
 
 }
