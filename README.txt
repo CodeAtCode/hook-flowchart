@@ -47,7 +47,6 @@ PS: The download feature is not supported in Webkit-based browsers like Safari o
 == Screenshots ==
 
 1. The window opened with all the flowcharts.
-2. The flowchart downloaded for a specific parent hook
 
 == Changelog ==
 
