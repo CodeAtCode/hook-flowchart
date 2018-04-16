@@ -16,9 +16,7 @@ This plugin generates a flowchart for every parent hook that is running under yo
 
 From the Setting Page you can choose which parent hook to exlude from the chart.  
 
-Check the screenshots!
-
-PS: The download feature is not supported in Webkit-based browsers like Safari or Chrome/Chormium.
+Check the screenshot!
 
 == Installation ==
 
