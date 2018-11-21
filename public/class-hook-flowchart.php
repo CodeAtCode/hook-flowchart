@@ -92,26 +92,6 @@ class Hook_Flowchart {
 	}
 
 	/**
-	 * Initialize the plugin by setting localization and loading public scripts
-	 * and styles.
-	 *
-	 * @since     1.0.0
-	  add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
-
-
-
-
-
-
-	  // Load public-facing style sheet and JavaScript.
-	  add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-	  add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-	  add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_js_vars' ) );
-
-
-	  }
-
-	  /**
 	 * Return the plugin slug.
 	 *
 	 * @since    1.0.0
